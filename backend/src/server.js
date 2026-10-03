@@ -34,9 +34,23 @@ app.use('/api/stores', storeRoutes);
 app.use('/api/ratings', ratingRoutes);
 app.use('/api/owner', ownerRoutes);
 
-// 404 handler
-app.use((req, res) => {
-  res.status(404).json({ message: `Route ${req.originalUrl} not found.` });
+const path = require('path');
+const fs = require('fs');
+
+const distPath = path.join(__dirname, '../../frontend/dist');
+if (fs.existsSync(distPath)) {
+  app.use(express.static(distPath));
+  app.get('*', (req, res, next) => {
+    if (req.originalUrl.startsWith('/api')) {
+      return next();
+    }
+    res.sendFile(path.join(distPath, 'index.html'));
+  });
+}
+
+// 404 handler for API routes
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ message: `API Route ${req.originalUrl} not found.` });
 });
 
 // Global Error Handler
