@@ -19,10 +19,17 @@ export const apiRequest = async (endpoint, options = {}) => {
     ...options.headers,
   };
 
-  const response = await fetch(`${BASE_URL}${endpoint}`, {
-    ...options,
-    headers,
-  });
+  let response;
+  try {
+    response = await fetch(`${BASE_URL}${endpoint}`, {
+      ...options,
+      headers,
+    });
+  } catch (networkErr) {
+    const error = new Error('Network connection failed. Unable to reach the server. Please verify the backend is running.');
+    error.isNetworkError = true;
+    throw error;
+  }
 
   const data = await response.json().catch(() => ({}));
 
@@ -31,11 +38,17 @@ export const apiRequest = async (endpoint, options = {}) => {
       // Clear token if expired or invalid
       setAuthToken(null);
       localStorage.removeItem('user');
-      if (window.location.pathname !== '/login') {
+      if (window.location.pathname !== '/login' && window.location.pathname !== '/register') {
         window.location.href = '/login';
       }
     }
-    const error = new Error(data.message || 'An error occurred');
+    const defaultMsg = response.status === 404
+      ? 'API endpoint not found on the server.'
+      : response.status === 500
+      ? 'Internal server error. Please try again later.'
+      : 'Request failed. Please check your input.';
+
+    const error = new Error(data.message || defaultMsg);
     error.errors = data.errors || [];
     error.status = response.status;
     throw error;

@@ -139,13 +139,23 @@ const RegisterPage = () => {
         {/* Form Card */}
         <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 border border-slate-100 p-6 sm:p-8">
           {errorMessage && (
-            <div className="mb-5 p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-sm">
-              <div className="flex items-center gap-2 font-semibold">
-                <AlertCircle className="w-4 h-4" />
+            <div className="mb-5 p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-sm shadow-xs animate-shake">
+              <div className="flex items-center gap-2 font-bold">
+                <AlertCircle className="w-4 h-4 shrink-0" />
                 <span>{errorMessage}</span>
               </div>
+              {errorMessage.includes('already exists') && (
+                <div className="mt-2.5 pt-2 border-t border-rose-200">
+                  <Link
+                    to="/login"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-rose-100 hover:bg-rose-200 text-rose-900 rounded-lg text-xs font-bold transition-colors"
+                  >
+                    <span>👉 Click here to Log In with this email</span>
+                  </Link>
+                </div>
+              )}
               {validationErrors.length > 0 && (
-                <ul className="list-disc list-inside mt-2 text-xs space-y-1">
+                <ul className="list-disc list-inside mt-2 text-xs space-y-1 text-rose-800">
                   {validationErrors.map((err, idx) => (
                     <li key={idx}>{err}</li>
                   ))}
