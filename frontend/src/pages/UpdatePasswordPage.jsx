@@ -37,13 +37,18 @@ const UpdatePasswordPage = () => {
     setErrorMessage('');
     setSuccessMessage('');
 
+    if (!currentPassword) {
+      setErrorMessage('Please enter your current password.');
+      return;
+    }
+
     if (!isNewPasswordValid) {
-      setErrorMessage('New password does not meet the complexity requirements.');
+      setErrorMessage('New password must be 8-16 characters and include at least one uppercase letter (A-Z) and one special character (!@#$%^&*).');
       return;
     }
 
     if (!isMatch) {
-      setErrorMessage('New password and confirmation do not match.');
+      setErrorMessage('New password and confirmation password do not match.');
       return;
     }
 
@@ -209,8 +214,8 @@ const UpdatePasswordPage = () => {
 
           <button
             type="submit"
-            disabled={isLoading || !isNewPasswordValid || !isMatch || !currentPassword}
-            className="w-full mt-4 py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-blue-500/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            disabled={isLoading}
+            className="w-full mt-4 py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl shadow-md shadow-blue-500/20 hover:shadow-lg transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer"
           >
             {isLoading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
