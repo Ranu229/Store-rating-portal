@@ -47,9 +47,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`===============================================`);
-  console.log(`🚀 Store Rating Backend API running on port ${PORT}`);
-  console.log(`📍 Health Check: http://localhost:${PORT}/api/health`);
-  console.log(`===============================================`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`===============================================`);
+    console.log(`🚀 Store Rating Backend API running on port ${PORT}`);
+    console.log(`📍 Health Check: http://localhost:${PORT}/api/health`);
+    console.log(`===============================================`);
+  });
+}
+
+module.exports = app;
