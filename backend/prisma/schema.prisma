@@ -1,0 +1,63 @@
+// Prisma Schema for Store Rating Application
+// Compatible with SQLite (for zero-dependency instant review) and PostgreSQL/MySQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  name      String    // Validation: 20 - 60 characters
+  email     String    @unique
+  password  String    // Hashed with bcrypt
+  address   String    // Max 400 characters
+  role      String    @default("NORMAL_USER") // "ADMIN", "NORMAL_USER", "STORE_OWNER"
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  // A Store Owner can own one or more stores
+  stores    Store[]   @relation("StoreOwner")
+  // A Normal User can submit ratings for stores
+  ratings   Rating[]  @relation("UserRatings")
+
+  @@index([email])
+  @@index([role])
+}
+
+model Store {
+  id        String    @id @default(uuid())
+  name      String    // Store Name
+  email     String    @unique
+  address   String    // Store Address (Max 400 characters)
+  ownerId   String?   // Foreign key to User with STORE_OWNER role
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  owner     User?     @relation("StoreOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  ratings   Rating[]  @relation("StoreRatings")
+
+  @@index([name])
+  @@index([address])
+}
+
+model Rating {
+  id        String    @id @default(uuid())
+  rating    Int       // Rating between 1 and 5
+  userId    String    // Foreign key to User
+  storeId   String    // Foreign key to Store
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  user      User      @relation("UserRatings", fields: [userId], references: [id], onDelete: Cascade)
+  store     Store     @relation("StoreRatings", fields: [storeId], references: [id], onDelete: Cascade)
+
+  // A user can submit only one rating per store, but can modify it
+  @@unique([userId, storeId])
+  @@index([storeId])
+  @@index([userId])
+}

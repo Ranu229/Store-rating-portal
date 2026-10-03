@@ -1,0 +1,21 @@
+{
+  "name": "store-rating-portal",
+  "version": "1.0.0",
+  "description": "FullStack Store Rating System - Intern Coding Challenge",
+  "scripts": {
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "seed": "npm --prefix backend run db:seed",
+    "build:frontend": "npm --prefix frontend run build"
+  },
+  "keywords": [
+    "express",
+    "react",
+    "prisma",
+    "postgresql",
+    "mysql",
+    "store-ratings"
+  ],
+  "author": "",
+  "license": "ISC"
+}
