@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "FullStack Store Rating System - Intern Coding Challenge",
   "scripts": {
+    "build": "cd frontend && npm install && npm run build",
     "dev": "node start.js",
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
