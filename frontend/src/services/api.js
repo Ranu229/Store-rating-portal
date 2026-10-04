@@ -26,6 +26,13 @@ const getCurrentUserId = () => {
   return null;
 };
 
+// Check if running on Vercel or cloud static host
+const isStaticOrVercel = () => {
+  if (typeof window === 'undefined') return false;
+  const host = window.location.hostname;
+  return host.includes('vercel.app') || (host !== 'localhost' && host !== '127.0.0.1' && !host.startsWith('192.168.'));
+};
+
 // Fallback dispatcher when backend server is not hosted or unreachable (e.g. Vercel static)
 const handleFallback = (endpoint, method, body) => {
   const [path, queryString] = endpoint.split('?');
@@ -58,6 +65,7 @@ const handleFallback = (endpoint, method, body) => {
     return mockDb.getAdminDashboard();
   }
   if (path === '/admin/users') {
+    if (method === 'POST') return mockDb.createUser(body);
     return mockDb.getAdminUsers(params);
   }
   if (path.startsWith('/admin/users/')) {
@@ -76,15 +84,20 @@ const handleFallback = (endpoint, method, body) => {
 };
 
 export const apiRequest = async (endpoint, options = {}) => {
+  const method = options.method || 'GET';
+  const body = options.body ? JSON.parse(options.body) : null;
+
+  // On Vercel or static deployment, instantly serve via client mock database with zero network failures
+  if (isStaticOrVercel()) {
+    return handleFallback(endpoint, method, body);
+  }
+
   const token = getAuthToken();
   const headers = {
     'Content-Type': 'application/json',
     ...(token ? { Authorization: `Bearer ${token}` } : {}),
     ...options.headers,
   };
-
-  const method = options.method || 'GET';
-  const body = options.body ? JSON.parse(options.body) : null;
 
   try {
     const response = await fetch(`${BASE_URL}${endpoint}`, {
@@ -120,8 +133,8 @@ export const apiRequest = async (endpoint, options = {}) => {
           }
         }
 
-        // On 404 or 500, fallback to mockDb
-        if (response.status === 404 || response.status >= 500) {
+        // On 404, 405, or 500, fallback to mockDb
+        if (response.status === 404 || response.status === 405 || response.status >= 500) {
           return handleFallback(endpoint, method, body);
         }
 

@@ -118,7 +118,18 @@ async function main() {
       role: 'NORMAL_USER',
     },
   });
-  console.log('✅ Normal users created: user1@example.com, user2@example.com, user3@example.com');
+
+  const userRanuPass = await hash('Password1@');
+  await prisma.user.create({
+    data: {
+      name: 'Ranu Kumar Sharma Choudhary',
+      email: 'ranushrii6@gmail.com',
+      password: userRanuPass,
+      address: 'Tirupati Nagar, Neelbad, Bhopal, MP 462044',
+      role: 'NORMAL_USER',
+    },
+  });
+  console.log('✅ Normal users created: user1, user2, user3, ranushrii6');
 
   // 5. Submit sample Ratings
   await prisma.rating.createMany({

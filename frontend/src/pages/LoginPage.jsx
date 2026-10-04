@@ -72,7 +72,7 @@ const LoginPage = () => {
             <Sparkles className="w-3.5 h-3.5 text-amber-600" />
             Fast Evaluator Quick-Demo Accounts
           </div>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
             <button
               type="button"
               onClick={() => handleQuickLogin('admin@example.com', 'Admin@123#')}
@@ -98,7 +98,16 @@ const LoginPage = () => {
               className="px-2 py-2 text-xs font-semibold bg-white text-emerald-700 border border-emerald-200 rounded-xl hover:bg-emerald-50 transition-all flex flex-col items-center gap-1 shadow-2xs"
             >
               <User className="w-4 h-4 text-emerald-600" />
-              <span>Normal User</span>
+              <span>User (Demo)</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => handleQuickLogin('ranushrii6@gmail.com', 'Password1@')}
+              disabled={isLoading}
+              className="px-2 py-2 text-xs font-semibold bg-white text-rose-700 border border-rose-200 rounded-xl hover:bg-rose-50 transition-all flex flex-col items-center gap-1 shadow-2xs"
+            >
+              <Sparkles className="w-4 h-4 text-rose-600" />
+              <span>Ranu (User)</span>
             </button>
           </div>
         </div>
