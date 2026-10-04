@@ -1,6 +1,8 @@
 # 🏬 Store Rating Web Portal - FullStack Coding Challenge
 
-A production-grade, full-stack web application that allows users to explore and submit ratings (1 to 5 stars) for registered stores, featuring a unified role-based authentication system, real-time validations, sortable/filterable tables, interactive dashboards, and database persistence.
+> **GitHub Repository**: [https://github.com/Ranu229/Store-rating-portal](https://github.com/Ranu229/Store-rating-portal)  
+> **Candidate Submission**: Roxiler Systems - FullStack Intern Coding Challenge  
+> **Instant Evaluator Access**: 1-Click Demo buttons are provided directly on the Login page for Admin, Store Owner, and Normal User.
 
 ---
 
