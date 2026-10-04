@@ -1,12 +1,15 @@
 {
-  "name": "store-rating-frontend",
+  "name": "store-rating-portal",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "node backend/src/server.js",
+    "seed": "npm --prefix backend run db:seed",
+    "dev:all": "node start.js"
   },
   "dependencies": {
     "@types/react": "^18.3.3",

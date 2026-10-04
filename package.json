@@ -1,23 +1,33 @@
 {
   "name": "store-rating-portal",
+  "private": true,
   "version": "1.0.0",
-  "description": "FullStack Store Rating System - Intern Coding Challenge",
+  "type": "module",
   "scripts": {
-    "build": "node build.js",
-    "dev": "node start.js",
-    "dev:backend": "npm --prefix backend run dev",
-    "dev:frontend": "npm --prefix frontend run dev",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node backend/src/server.js",
     "seed": "npm --prefix backend run db:seed",
-    "build:frontend": "npm --prefix frontend run build"
+    "dev:all": "node start.js"
   },
-  "keywords": [
-    "express",
-    "react",
-    "prisma",
-    "postgresql",
-    "mysql",
-    "store-ratings"
-  ],
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.414.0",
+    "postcss": "^8.4.39",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1",
+    "tailwind-merge": "^2.4.0",
+    "tailwindcss": "^3.4.7",
+    "vite": "^5.3.4"
+  },
+  "optionalDependencies": {
+    "@esbuild/linux-x64": "^0.21.5",
+    "@rollup/rollup-linux-x64-gnu": "^4.18.0"
+  }
 }
