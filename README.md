@@ -1,8 +1,10 @@
 # 🏬 Store Rating Web Portal - FullStack Coding Challenge
 
-> **GitHub Repository**: [https://github.com/Ranu229/Store-rating-portal](https://github.com/Ranu229/Store-rating-portal)  
-> **Candidate Submission**: Roxiler Systems - FullStack Intern Coding Challenge  
-> **Instant Evaluator Access**: 1-Click Demo buttons are provided directly on the Login page for Admin, Store Owner, and Normal User.
+> 🌐 **Live Vercel App**: **[https://store-rating-portal-sud3.vercel.app](https://store-rating-portal-sud3.vercel.app)**  
+> 🔗 **Alternative Live Mirror**: **[https://store-rating-portal-4sa3.vercel.app](https://store-rating-portal-4sa3.vercel.app)**  
+> 💻 **GitHub Repository**: [https://github.com/Ranu229/Store-rating-portal](https://github.com/Ranu229/Store-rating-portal)  
+> 📋 **Candidate Submission**: Roxiler Systems - FullStack Intern Coding Challenge  
+> ⚡ **Instant Evaluator Access**: 1-Click Demo buttons are provided directly on the Login page for Admin, Store Owner, Normal User, and Ranu.
 
 ---
 
